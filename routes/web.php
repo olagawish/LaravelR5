@@ -1,13 +1,48 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Mycontroller;
+
+Route::get('test20', [Mycontroller::class, 'my_data']);
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('ola/{id}', function($id){
+Route::get('ola/{id?}', function($id = 0){
     return 'welcome to my first website'. $id;
 
-    
+})->whereNumber('id');
+
+Route::get('course/{name}', function($name){
+    return 'my name is : ' . $name ;
+
+//})->whereAlpha('name');//
+
+})->whereIn('name' ,['ola', 'ahmed','ali']);
+
+
+Route::prefix('cars')->group(function(){
+    Route::get('bmw', function(){
+        return 'category is bmw';
+    });
+
+    Route::get('mercedes', function(){
+    return 'category is mercedes';
+    });
 });
+
+
+
+//Route::fallback(function() {
+    //return 'the required is not found';
+   // return redirect('/');
+   // });
+
+   Route::get('form1',function(){
+    return view('form1');
+   }) ;
+
+Route::post('recform1', function() {
+    return 'data received';
+})->name('receiveform1');
