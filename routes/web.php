@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mycontroller;
 
-Route::get('test20', [Mycontroller::class, 'my_data']);
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route::post('/submit', [Mycontroller::class, 'submit'])->name('submit');
 
 Route::get('ola/{id?}', function($id = 0){
     return 'welcome to my first website'. $id;
@@ -43,6 +43,16 @@ Route::prefix('cars')->group(function(){
     return view('form1');
    }) ;
 
-Route::post('recform1', function() {
-    return 'data received';
-})->name('receiveform1');
+//Route::post('recform1', function() {
+//    return 'data received';
+//})->name('receiveform1');
+
+
+Route::get('test20', [Mycontroller::class, 'my_data']);
+
+
+Route::get('/form1', function() {
+    return view('form1');
+})->name('form1');
+
+Route::post('/submit', [MyController::class, 'submit'])->name('submit');
