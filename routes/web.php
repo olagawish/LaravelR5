@@ -2,10 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mycontroller;
+use App\Http\Controllers\Clientcontroller;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('test20', [Mycontroller::class, 'my_data']);
+
+Route::post('insertClient', [Clientcontroller::class, 'store'])->name('insertClient');
+Route::get('addClient', [Clientcontroller::class, 'create']);
+
+
 
 //Route::post('/submit', [Mycontroller::class, 'submit'])->name('submit');
 
