@@ -3,18 +3,21 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Mycontroller;
 use App\Http\Controllers\Clientcontroller;
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\StudentsController;
 
 Route::get('test20', [Mycontroller::class, 'my_data']);
 
 Route::post('insertClient', [Clientcontroller::class, 'store'])->name('insertClient');
 Route::get('addClient', [Clientcontroller::class, 'create']);
 
+Route::post('insertStudent', [StudentsController::class, 'store'])->name('insertStudent');
+Route::get('addStudent', [StudentsController::class, 'create']);
 
+
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 //Route::post('/submit', [Mycontroller::class, 'submit'])->name('submit');
 
