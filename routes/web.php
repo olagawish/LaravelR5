@@ -8,7 +8,10 @@ use App\Http\Controllers\StudentsController;
 Route::get('test20', [Mycontroller::class, 'my_data']);
 
 Route::post('insertClient', [Clientcontroller::class, 'store'])->name('insertClient');
-Route::get('addClient', [Clientcontroller::class, 'create']);
+Route::get('addClient', [Clientcontroller::class, 'create'])->name('addClient');
+Route::get('clients', [Clientcontroller::class, 'index'])->name('clients');
+
+
 
 Route::post('insertStudent', [StudentsController::class, 'store'])->name('insertStudent');
 Route::get('addStudent', [StudentsController::class, 'create']);
