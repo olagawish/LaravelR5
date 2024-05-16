@@ -10,6 +10,11 @@ Route::get('test20', [Mycontroller::class, 'my_data']);
 Route::post('insertClient', [Clientcontroller::class, 'store'])->name('insertClient');
 Route::get('addClient', [Clientcontroller::class, 'create'])->name('addClient');
 Route::get('clients', [Clientcontroller::class, 'index'])->name('clients');
+Route::get('editClient/{id}', [Clientcontroller::class, 'edit'])->name('editClient');
+Route::put('updateClients/{id}', [Clientcontroller::class, 'update'])->name('updateClients');
+Route::get('showClient/{id}', [Clientcontroller::class, 'show'])->name('showClient');
+Route::delete('delClient', [Clientcontroller::class, 'destroy'])->name('delClient');
+
 
 
 
