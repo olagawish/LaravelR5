@@ -44,7 +44,8 @@ class StudentsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $student = Student::findOrFail($id);
+        return view('showStudent', compact('student'));
     }
 
     /**
@@ -52,7 +53,8 @@ class StudentsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $student = Student::findOrFail($id);
+        return view('editStudent', compact('student'));
     }
 
     /**
@@ -60,14 +62,17 @@ class StudentsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Student::where('id', $id)->update($request->only($this->columns));
+        return redirect('students');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->id;
+        Student::where('id', $id)->delete();
+        return redirect('students');
     }
 }

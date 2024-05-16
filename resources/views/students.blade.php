@@ -19,6 +19,9 @@
       <tr>
         <th>Student Name</th>
         <th>Age</th>
+        <th>Edit</th>
+        <th>Show</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +29,17 @@
       <tr>
         <td>{{ $student->studentName }}</td>
         <td>{{ $student->age }}</td>
+        <td><a href="{{ route('editStudent',$student->id)}}">Edit</a></td>
+        <td><a href="{{ route('showStudent',$student->id)}}">Show</a></td>
+        <td>
+          <form action="{{ route('delStudent') }}" method="post">
+          @csrf
+          @method('DELETE')
+          <input type="hidden" value="{{$student->id}}" name="id"> 
+          <input type="submit" onclick="return confirm('Are you sure you want to delete ?')" value="Delete">
+          </form>
+        </td>
+
       </tr>
      @endforeach
     </tbody>

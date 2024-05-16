@@ -21,6 +21,11 @@ Route::delete('delClient', [Clientcontroller::class, 'destroy'])->name('delClien
 Route::post('insertStudent', [StudentsController::class, 'store'])->name('insertStudent');
 Route::get('addStudent', [StudentsController::class, 'create'])->name('addStudent');
 Route::get('students', [StudentsController::class, 'index'])->name('students');
+Route::get('editStudent/{id}', [StudentsController::class, 'edit'])->name('editStudent');
+Route::put('updateStudent/{id}', [StudentsController::class, 'update'])->name('updateStudent');
+Route::get('showStudent/{id}', [StudentsController::class, 'show'])->name('showStudent');
+Route::delete('delStudent', [StudentsController::class, 'destroy'])->name('delStudent');
+
 
 
 Route::get('/', function () {
