@@ -28,6 +28,10 @@ Route::put('updateStudent/{id}', [StudentsController::class, 'update'])->name('u
 Route::get('showStudent/{id}', [StudentsController::class, 'show'])->name('showStudent');
 Route::delete('delStudent', [StudentsController::class, 'destroy'])->name('delStudent');
 
+Route::get('trashStudent', [StudentsController::class, 'trash'])->name('trashStudent');
+Route::get('restoreStudentt/{id}', [StudentsControllerr::class, 'restore'])->name('restoreStudent');
+Route::delete('forceDeleteStudent', [StudentsController::class, 'forceDelete'])->name('forceDeleteStudent');
+
 
 
 Route::get('/', function () {
