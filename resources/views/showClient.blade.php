@@ -7,6 +7,7 @@
     <title>Show {{ $client->clientName }}</title>
 </head>
 <body>
+    <p><img src="{{ asset('assets/images/' . $client->image) }}" alt=""></p>
     <h1><strong>Client:</strong>{{$client->clientName}}</h1>
     <hr>
     <h2><strong>Phone:</strong>{{$client->phone}}</h2>
@@ -14,5 +15,9 @@
     <h2><strong>Email:</strong>{{$client->email}}</h2>
     <hr>
     <h2><strong>Website:</strong>{{$client->website}}</h2>
+    <hr>
+    <h2><strong>City:</strong>{{$client->city}}</h2>
+    <hr>
+    <h2><strong>Active:</strong>{{ $client->active ? 'Yes':'No' }}</h2>
 </body>
 </html>

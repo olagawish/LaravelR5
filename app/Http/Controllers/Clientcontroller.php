@@ -8,7 +8,7 @@ use DB;
 
 class Clientcontroller extends Controller
 {
-    private $columns = ['clientName','phone','email','website'];
+    //private $columns = ['clientName','phone','email','website'];
     /**
      * Display a listing of the resource.
      */
@@ -32,12 +32,28 @@ class Clientcontroller extends Controller
      */
     public function store(Request $request)
     {
+        //return dd($request->all());
+
+        $messages = $this->errMsg();
+
         $data = $request->validate([
-            'clientName' => 'required|max:100|min:5',
+            'clientName' => 'required|max:100|min:3',
             'phone' =>'required|min:11',
             'email' =>'required|email:rfc',
             'website'=>'required',
-        ]);
+            'city'=>'required|max:50',
+            //'image'=>'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], $messages);
+
+        $imgExt = $request ->image->getClientOriginalExtension();
+        $fileName = time() . '.' . $imgExt;
+        $path = 'assets/images';
+        $request->image->move($path, $fileName);
+        
+        $data['image'] = $fileName;
+
+        $data['active'] = isset($request ->active);
         Client::create($data);
         return redirect('clients');
     
@@ -74,18 +90,48 @@ class Clientcontroller extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $messages = $this->errMsg();
+
         $data = $request->validate([
             'clientName' => 'required|max:100|min:8',
             'phone' =>'required|min:11',
             'email' =>'required|email:rfc',
             'website'=>'required',
-        ]);
-        Client::findOrFail($id)->update($data);
-        return redirect('clients');
+            'city'=>'required|max:50',
+            //'image'=>'required',
+            'image' =>'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], $messages);
 
+        if ($request->hasFile('image')) {
+            $newImage = $request->file('image')->store('images', 'public');
+
+             // Preserve the old photo
+             $oldImage = $client->image;
+             if ($oldImage) {
+                 // Move the old photo to a backup directory or rename it
+                 $backupDirectory = 'backup/images';
+                 $backupImage = Storage::disk('public')->move($oldImage, $backupDirectory . basename($oldImage));
+                 if ($backupImage) {
+                    Storage::disk('public')->delete($oldImage);
+                }
+            }
+    
+            $client->image = $newImage;
+        }
+    
+        $client->update($data);
+    
+        return redirect()->route('clients.index')->with('success', 'Client updated successfully');
+    }
+       // Client::create($data);
+        //return redirect('clients');
+       // $fileName = $this->uploadFile($request->image, );
+        
+        //Client::findOrFail($id)->update($data);
+      
         //Client::where('id', $data)->update($request->only($this->columns));
         //return redirect('clients');
-    }
+    //}
 
     /**
      * Remove the specified resource from storage.
@@ -123,6 +169,14 @@ class Clientcontroller extends Controller
         $id = $request->id;
         Client::where('id', $id)->forceDelete();
         return redirect('trashClient');
+    }
+
+    //error custom messages
+    public function errMsg(){
+        return [
+        'clientName.required' =>'The client name is missed , please insert' ,
+        'clientName.min' =>'length less then 5 , please insert more chars' ,
+        ];
     }
 
 

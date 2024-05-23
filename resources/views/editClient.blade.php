@@ -44,6 +44,33 @@
           @enderror
       </p>
         <input type="text" id="website" name="website" class="form-control" value="{{ $client->website }}"><br><br>
+
+        <label for="city">city:</label><br>
+       <p style ="color:red"> 
+          @error('city')
+            {{ $message }}
+          @enderror
+      </p>
+      <select name="city" id="city" class="form-control">
+        <option value="">Please Select City</option>
+        <option value="cairo" {{ old('city', $client->city) == 'cairo' ? 'selected' : '' }}>Cairo</option>
+        <option value="giza" {{ old('city', $client->city) == 'giza' ? 'selected' : '' }}>Giza</option>
+        <option value="alex" {{ old('city', $client->city) == 'alex' ? 'selected' : '' }}>Alex</option>
+      </select>
+      <br><br>
+
+        <label for="active">Active:</label><br>
+        <input type="checkbox" id="active" name="active" {{ old('active', $client->active) ? 'checked' : '' }}><br><br>
+
+        <p><img src="{{ asset('assets/images/' . $client->image) }}" alt="{{ $client->clientName }}"></p>
+        <label for="image">Image:</label><br>
+        <input type="file" id="image" name="image" class="form-control"><br>
+        <p style="color:red">
+        @error('image')
+            {{ $message }}
+        @enderror
+        </p>
+
         <input type="submit" value ="Submit">
     </form> 
 
