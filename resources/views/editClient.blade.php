@@ -13,7 +13,7 @@
 <div class="container" style="margin-left:20px ">
 <h2>Edit Client</h2>
 
-    <form action="{{ route('updateClients', $client->id) }}" method="POST">
+    <form action="{{ route('updateClients', $client->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('put')
         <label for="clientName">client Name:</label><br>
@@ -53,14 +53,14 @@
       </p>
       <select name="city" id="city" class="form-control">
         <option value="">Please Select City</option>
-        <option value="cairo" {{ old('city', $client->city) == 'cairo' ? 'selected' : '' }}>Cairo</option>
-        <option value="giza" {{ old('city', $client->city) == 'giza' ? 'selected' : '' }}>Giza</option>
-        <option value="alex" {{ old('city', $client->city) == 'alex' ? 'selected' : '' }}>Alex</option>
+        <option value="cairo" {{ $client->city == 'cairo' ? 'selected' : '' }}>Cairo</option>
+        <option value="giza" {{ $client->city == 'giza' ? 'selected' : '' }}>Giza</option>
+        <option value="alex" {{ $client->city == 'alex' ? 'selected' : '' }}>Alex</option>
       </select>
       <br><br>
 
         <label for="active">Active:</label><br>
-        <input type="checkbox" id="active" name="active" {{ old('active', $client->active) ? 'checked' : '' }}><br><br>
+        <input type="checkbox" id="active" name="active" {{ $client->active ? 'checked' : '' }}><br><br>
 
         <p><img src="{{ asset('assets/images/' . $client->image) }}" alt="{{ $client->clientName }}"></p>
         <label for="image">Image:</label><br>

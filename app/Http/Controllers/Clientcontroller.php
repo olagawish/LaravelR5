@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
-use DB;
+use App\Traits\UploadFile;
 
 class Clientcontroller extends Controller
 {
+    use UploadFile;
     //private $columns = ['clientName','phone','email','website'];
     /**
      * Display a listing of the resource.
@@ -46,10 +47,11 @@ class Clientcontroller extends Controller
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], $messages);
 
-        $imgExt = $request ->image->getClientOriginalExtension();
-        $fileName = time() . '.' . $imgExt;
-        $path = 'assets/images';
-        $request->image->move($path, $fileName);
+        //$imgExt = $request ->image->getClientOriginalExtension();
+        //$fileName = time() . '.' . $imgExt;
+        //$path = 'assets/images';
+        //$request->image->move($path, $fileName);
+        $fileName = $this->upload($request->image, 'assets/images');
         
         $data['image'] = $fileName;
 
@@ -99,39 +101,23 @@ class Clientcontroller extends Controller
             'website'=>'required',
             'city'=>'required|max:50',
             //'image'=>'required',
-            'image' =>'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' =>'sometimes|image',
         ], $messages);
-
-        if ($request->hasFile('image')) {
-            $newImage = $request->file('image')->store('images', 'public');
-
-             // Preserve the old photo
-             $oldImage = $client->image;
-             if ($oldImage) {
-                 // Move the old photo to a backup directory or rename it
-                 $backupDirectory = 'backup/images';
-                 $backupImage = Storage::disk('public')->move($oldImage, $backupDirectory . basename($oldImage));
-                 if ($backupImage) {
-                    Storage::disk('public')->delete($oldImage);
-                }
-            }
-    
-            $client->image = $newImage;
-        }
-    
-        $client->update($data);
-    
-        return redirect()->route('clients.index')->with('success', 'Client updated successfully');
-    }
-       // Client::create($data);
-        //return redirect('clients');
-       // $fileName = $this->uploadFile($request->image, );
         
-        //Client::findOrFail($id)->update($data);
-      
-        //Client::where('id', $data)->update($request->only($this->columns));
-        //return redirect('clients');
-    //}
+        if ($request->hasFile('image')) {
+            $fileName = $this->upload($request->image, 'assets/images');
+            //$imgExt = $request ->image->getClientOriginalExtension();
+            //$fileName = time() . '.' . $imgExt;
+            //$path = 'assets/images';
+            //$request->image->move($path, $fileName);
+            $data['image'] = $fileName;
+            // storage - unlink
+        }
+
+        $data['active'] = isset($request ->active);
+        Client::where ('id', $id)->update($data);
+        return redirect('clients');
+    }
 
     /**
      * Remove the specified resource from storage.
