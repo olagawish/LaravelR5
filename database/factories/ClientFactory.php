@@ -30,6 +30,10 @@ class ClientFactory extends Factory
             'city' => $this->faker->city,
             'active' => $this->faker->active,
             'image' => $this->faker->image,
+            'editClient' => $this->faker->editClient,
+            'showClient' => $this->faker->showClient,
+            'delClient' => $this->faker->delClient,
+            
         ];
     }
 }
