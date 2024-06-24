@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('clientName', 100);
             $table->string('phone', 25);
             $table->string('email', 100);
-            $table->string('website', 100);
-            $table->string('city', 50);
+            $table->string('website', 255);
+            //$table->string('city', 50);
             $table->string('image', 100);
             $table->boolean('active');
+            $table->foreignId('city_id')->constrained('cities');
             $table->softDeletes();
             $table->timestamps();
         });

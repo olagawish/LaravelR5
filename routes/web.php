@@ -34,7 +34,7 @@ Route::delete('forceDeleteStudent', [StudentsController::class, 'forceDelete'])-
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('stacked');
 });
 
 //Route::post('/submit', [Mycontroller::class, 'submit'])->name('submit');

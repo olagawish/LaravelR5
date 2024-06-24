@@ -16,7 +16,9 @@
     <hr>
     <h2><strong>Website:</strong>{{$client->website}}</h2>
     <hr>
-    <h2><strong>City:</strong>{{$client->city}}</h2>
+    <h2><strong>City:</strong>{{$client->city->city}}</h2>
+    <hr>
+    <h2><strong>image:</strong>{{$client->image}}</h2>
     <hr>
     <h2><strong>Active:</strong>{{ $client->active ? 'Yes':'No' }}</h2>
 </body>
