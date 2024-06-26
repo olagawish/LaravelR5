@@ -43,6 +43,7 @@ class Clientcontroller extends Controller
             'email' =>'required|email:rfc',
             'website'=>'required',
             'city'=>'required|max:50',
+            //'username' => 'required|string|max:255|unique:users',
             //'image'=>'required',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], $messages);
@@ -53,11 +54,17 @@ class Clientcontroller extends Controller
         //$request->image->move($path, $fileName);
         $fileName = $this->upload($request->image, 'assets/images');
         
-        $data['image'] = $fileName;
+        //$data['image'] = $fileName;
+        //$user = User::create([
+        //    'username' => $validatedData['username'],
+        //]);
+        //return redirect()->route('users');
 
         $data['active'] = isset($request ->active);
         Client::create($data);
         return redirect('clients');
+        
+        
     
         // $client = new Client();
         // $client ->clientName = $request->clientName; 

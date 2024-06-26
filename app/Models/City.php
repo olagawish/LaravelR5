@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Client;
 
 class City extends Model
 {
@@ -11,4 +12,8 @@ class City extends Model
     protected $fillable =[
         'city',
     ];
+
+    public function clients(){
+        return $this->hasMany(Client::class);
+    }
 }

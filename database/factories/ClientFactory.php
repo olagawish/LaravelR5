@@ -18,14 +18,14 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'clientName' => $this->faker->name,
-            'phone' => $this->faker->phoneNumber,
-            'email' => $this->faker->unique()->safeEmail, // Added () after unique() method
-            'website' => $this->faker->url, // Changed website to url for generating URLs
-            'city_id' => $this->faker->numberBetween(1, 20),
-            'active' => $this->faker->boolean, // Changed no to boolean for generating true/false values
-            'image' => $this->faker->imageUrl(), // Added () after imageUrl method
-            'address' => $this->faker->address, // Define the 'Addres' field here
+            'clientName' => fake()->name(),
+            'phone' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+            'website' => fake()->url(),
+            'city_id' => fake()->numberBetween(1, 20),
+            'image' => fake()->imageUrl(640, 480),
+            'active' => fake()->numberBetween(0, 1),
+            'address' => fake()->address(),
         ];
     }
 }

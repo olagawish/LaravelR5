@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('address', 100);
-        });
+       // Schema::table('users', function (Blueprint $table) {
+          // $table->string('username');
+       // });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('address');
-        });
+       // Schema::table('users', function (Blueprint $table) {
+//$table->dropColumn('username');
+       // });
     }
 };

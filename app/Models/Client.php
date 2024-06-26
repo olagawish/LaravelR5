@@ -11,14 +11,14 @@ class Client extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-    'clientName',
-    'phone',
-    'email',
-    'website',
-    'city_id',
-    'active',
-    'image',
-    'Address',
+        'clientName',
+        'phone',
+        'email',
+        'website',
+        'city_id',
+        'active',
+        'image',
+        'address',
     ];
        #tthis line to make relation many to many
        public function city(){
